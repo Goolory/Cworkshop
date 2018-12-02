@@ -19,7 +19,9 @@
                 <el-table-column type="selection" width="55">选择</el-table-column>
                 <el-table-column prop="Rid" label="日志ID" width="70">
                 </el-table-column>
-                <el-table-column prop="Roomid" label="工坊号" sortable width="100">
+                <el-table-column prop="Sid" label="工坊号" width="70" sortable>
+                </el-table-column>
+                <el-table-column prop="Roomid" label="房间号"  width="70">
                 </el-table-column>
                 <el-table-column prop="Stationnum" label="额定人数" width="80">
                 </el-table-column>

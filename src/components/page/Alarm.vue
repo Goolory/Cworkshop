@@ -9,110 +9,82 @@
             <div class="form-box">
                 <el-form ref="form" :model="form" label-width="150px">
                     <el-form-item label="日志存储地址">
-                        <el-input v-model="form.name"></el-input>
+                        <el-input v-model="form.Recordaddress"></el-input>
                     </el-form-item>
                     <el-form-item label="图片存储地址">
-                        <el-input v-model="form.name"></el-input>
+                        <el-input v-model="form.Pictureaddress"></el-input>
                     </el-form-item>
-                    
                     <el-form-item label="报警方式">
-                        <el-select v-model="form.region" placeholder="请选择">
-                            <el-option key="bbk" label="终端警报" value="bbk"></el-option>
-                            <el-option key="xtc" label="平台警报" value="xtc"></el-option>
-                            <el-option key="imoo" label="终端警报+平台警报" value="imoo"></el-option>
+                        <el-select v-model="form.Reportway" placeholder="请选择">
+                            <el-option key="zd" label="终端警报" value="1"></el-option>
+                            <el-option key="pt" label="平台警报" value="2"></el-option>
+                            <el-option key="zp" label="终端警报+平台警报" value="3"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="定时清理">
-                        <el-select v-model="form.region" placeholder="请选择">
-                            <el-option key="bbk" label="24小时" value="bbk"></el-option>
-                            <el-option key="xtc" label="48小时" value="xtc"></el-option>
-                            <el-option key="imoo" label="72小时" value="imoo"></el-option>
+                        <el-select v-model="form.Cleantime" placeholder="请选择">
+                            <el-option key="one" label="24小时" value="86400"></el-option>
+                            <el-option key="two" label="48小时" value="172800"></el-option>
+                            <el-option key="three" label="72小时" value="259200"></el-option>
                         </el-select>
                     </el-form-item>
-                    
                     <el-form-item>
-                        <el-button type="primary" @click="onSubmit">表单提交</el-button>
+                        <el-button type="primary" @click="onSubmit">提交</el-button>
                         <el-button>取消</el-button>
                     </el-form-item>
                 </el-form>
             </div>
         </div>
-
     </div>
 </template>
 
 <script>
+    import {
+        addAlarm
+    } from "./../../api/api";
     export default {
-        data: function(){
+        data: function() {
             return {
-                options:[
-                    {
-                        value: 'guangdong',
-                        label: '广东省',
-                        children: [
-                            {
-                                value: 'guangzhou',
-                                label: '广州市',
-                                children: [
-                                    {
-                                        value: 'tianhe',
-                                        label: '天河区'
-                                    },
-                                    {
-                                        value: 'haizhu',
-                                        label: '海珠区'
-                                    }
-                                ]
-                            },
-                            {
-                                value: 'dongguan',
-                                label: '东莞市',
-                                children: [
-                                    {
-                                        value: 'changan',
-                                        label: '长安镇'
-                                    },
-                                    {
-                                        value: 'humen',
-                                        label: '虎门镇'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        value: 'hunan',
-                        label: '湖南省',
-                        children: [
-                            {
-                                value: 'changsha',
-                                label: '长沙市',
-                                children: [
-                                    {
-                                        value: 'yuelu',
-                                        label: '岳麓区'
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ],
                 form: {
-                    name: '',
-                    region: '',
-                    date1: '',
-                    date2: '',
-                    delivery: true,
-                    type: ['步步高'],
-                    resource: '小天才',
-                    desc: '',
-                    options: []
+                    Recordaddress: '',
+                    Pictureaddress: '',
+                    Reportway: '1',
+                    Cleantime: '86400',
                 }
             }
         },
         methods: {
             onSubmit() {
-                this.$message.success('提交成功！');
+                if (this.form.Recordaddress == '') {
+                    this.$message({
+                        message: '请输入日志存储地址',
+                        type: 'warning'
+                    })
+                    return
+                } else if (this.form.Pictureaddress == '') {
+                    this.$message({
+                        message: '请输入图片存储地址',
+                        type: 'warning'
+                    })
+                    return
+                }
+                let params = {
+                    record_address: this.form.Recordaddress,
+                    picture_address: this.form.Pictureaddress,
+                    report_way: this.form.Reportway,
+                    clean_time: this.form.Cleantime
+                }
+                addAlarm(params).then(res => {
+                    if (res == true) {
+                        this.$message.success('提交成功！');
+                    } else {
+                        this.$message({
+                            message: '提交失败！',
+                            type: 'warning'
+                        })
+                    }
+                })
+                console.log(this.form)
             }
         }
     }

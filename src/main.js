@@ -14,13 +14,6 @@ Vue.use(ElementUI);
 /* eslint-disable no-new */
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
-  // const role = localStorage.getItem('ms_username');
-  // if (!role && to.path !== '/login') {
-  //   next('/login');
-  // } else {
-  //   next();
-  // }
-
   if (to.matched.some(m => m.meta.auth)) {
     if (window.localStorage.isLogin === '1') {
       next()
@@ -35,8 +28,8 @@ router.beforeEach((to, from, next) => {
 })
 new Vue({
   el: '#app',
-  router,
   store,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  router,
 })

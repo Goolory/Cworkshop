@@ -10,18 +10,17 @@
             <el-form ref="form" :model="form" label-width="80px">
                 <el-col :span="7">
                     <el-form-item label="工坊号">
-                        <el-input v-model="form.name"></el-input>
+                        <el-input v-model="form.Sid"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="7">
                     <el-form-item label="房间号">
-                        <el-input v-model="form.name"></el-input>
+                        <el-input v-model="form.Roomid"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="6">
                     <el-form-item>
-                        <el-button type="primary">搜索</el-button>
-                        <!-- @click="onSubmit" -->
+                        <el-button type="primary" @click="onSubmit">搜索</el-button>
                     </el-form-item>
                 </el-col>
             </el-form>
@@ -32,39 +31,46 @@
             </div>
             <div class="card-center">
                 <el-row>
-                <el-col :span="8">
-                    <div class="item text">工坊号：</div>
-                </el-col>
-                <el-col :span="8">
-                    299
-                </el-col>
-            </el-row>
-            <el-row>
-                <el-col :span="8">
-                    <div class="item text">房间号：</div>
-                </el-col>
-                <el-col :span="8">
-                    299
-                </el-col>
-            </el-row>
-            <el-row>
-                <el-col :span="8">
-                    <div class="item text">工坊实际人数：</div>
-                </el-col>
-                <el-col :span="8">
-                    299
-                </el-col>
-            </el-row>
-            <el-row>
-                <el-col :span="8">
-                    <div class="item text">工坊剩余可进人数：</div>
-                </el-col>
-                <el-col :span="8">
-                    299
-                </el-col>
-            </el-row>
+                    <el-col :span="8">
+                        <div class="item text">工坊号：</div>
+                    </el-col>
+                    <el-col :span="8">
+                        {{Sid}}
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="8">
+                        <div class="item text">房间号：</div>
+                    </el-col>
+                    <el-col :span="8">
+                        {{Roomid}}
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="8">
+                        <div class="item text">房间名：</div>
+                    </el-col>
+                    <el-col :span="8">
+                        {{Roomname}}
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="8">
+                        <div class="item text">额定人数：</div>
+                    </el-col>
+                    <el-col :span="8">
+                        {{Stationnum}}
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="8">
+                        <div class="item text">实际人数</div>
+                    </el-col>
+                    <el-col :span="8">
+                        {{Realitynum}}
+                    </el-col>
+                </el-row>
             </div>
-            
         </el-card>
         <!-- </div> -->
     </div>
@@ -75,18 +81,49 @@
         data() {
             return {
                 form: {
-                    name: ''
-                }
+                    Sid: '',
+                    Roomid: ''
+                },
+                Sid: '0',
+                Roomid: '0',
+                Roomname: '<房间名>',
+                Stationnum: '0',
+                Realitynum: '0'
             };
+        },
+        methods: {
+            search: function(){
+
+            },
+            onSubmit: function(){
+                if (this.form.Sid == '') {
+                    this.$message({
+                        message: '请输入工坊号',
+                        type: 'warning'
+                    })
+                    return
+                } else if (this.form.Roomid == '') {
+                    this.$message({
+                        message: '请输入房间号',
+                        type: 'warning'
+                    })
+                    return
+                }
+                let params = {
+                    Sid : this.Sid,
+                    Roomid : this.Roomid,
+                }
+                searchRoom()
+            },
         }
     };
 </script>
 
 <style scoped>
-.card-center{
-    margin-left: 20%;
-    margin-top: 30px;
-}
+    .card-center {
+        margin-left: 20%;
+        margin-top: 30px;
+    }
     .search-card {
         margin-top: 20px;
     }
