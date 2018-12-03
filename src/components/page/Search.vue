@@ -77,6 +77,9 @@
 </template>
 
 <script>
+    import {
+        searchRoom
+    } from "./../../api/api";
     export default {
         data() {
             return {
@@ -92,10 +95,8 @@
             };
         },
         methods: {
-            search: function(){
-
-            },
-            onSubmit: function(){
+            search: function() {},
+            onSubmit: function() {
                 if (this.form.Sid == '') {
                     this.$message({
                         message: '请输入工坊号',
@@ -110,10 +111,23 @@
                     return
                 }
                 let params = {
-                    Sid : this.Sid,
-                    Roomid : this.Roomid,
+                    Sid: this.form.Sid,
+                    Roomid: this.form.Roomid,
                 }
-                searchRoom()
+                searchRoom(params).then(res => {
+                    if (res != "") {
+                        this.Sid = this.form.Sid
+                        this.Roomid = this.form.Roomid
+                        this.Stationnum = res[0]
+                        this.Realitynum = res[1]
+                        this.Roomname = res[2]
+                    } else {
+                       this.$message({
+                        message: '查询位置不存在',
+                        type: 'warning'
+                    }) 
+                    }
+                })
             },
         }
     };

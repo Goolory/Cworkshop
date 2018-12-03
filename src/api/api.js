@@ -29,3 +29,5 @@ function ajax(url, params, type = "GET", timeout = 1000) {
 export const AllReport = (params) => ajax(host + "/report/find", params, "GET");
 export const addAlarm = (params) => ajax(host + "/alarm/add", params, "POST");
 export const searchRoom = (params) => ajax(host + "/search/find", params, "GET");
+export const getFactoryBySid = (params) => ajax(host + "/limit/findBySid", params, "GET");
+export const postFactory = (params) => ajax(host + "/limit/postFactory", params, "POST");
