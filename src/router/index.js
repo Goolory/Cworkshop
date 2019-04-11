@@ -46,5 +46,10 @@ export default new Router({
       component: resolve => require(['../components/page/Login.vue'], resolve),
       meta: {title: '登录',auth: false},
     },
+    {
+      path: '/main',
+      component: resolve => require(['../components/page/Main.vue'], resolve),
+      meta: { title: '终端查询' ,auth: false}
+    },
   ]
 })
