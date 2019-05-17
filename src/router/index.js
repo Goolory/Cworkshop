@@ -4,10 +4,16 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
+  mode:'history',   //注意配置NGINX时，对服务器进行配置  参考：https://www.jb51.net/article/149186.htm
   routes: [
     {
       path: '/',
       redirect: '/dashboard',
+    },
+    {
+      path: '/main',
+      component: resolve => require(['../components/page/Main.vue'], resolve),
+      meta: { title: '终端查询' }
     },
     {
       path: '/',
@@ -46,10 +52,6 @@ export default new Router({
       component: resolve => require(['../components/page/Login.vue'], resolve),
       meta: {title: '登录',auth: false},
     },
-    {
-      path: '/main',
-      component: resolve => require(['../components/page/Main.vue'], resolve),
-      meta: { title: '终端查询' ,auth: false}
-    },
+    
   ]
 })

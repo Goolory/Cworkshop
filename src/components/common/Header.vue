@@ -4,7 +4,7 @@
         <div class="collapse-btn" @click="collapseChage">
             <i class="el-icon-menu"></i>
         </div>
-        <div class="logo">管理系统</div>
+        <div class="logo">定员定量管理系统</div>
         <div class="header-right">
             <div class="header-user-con">
                 <!-- 全屏显示 -->
@@ -110,6 +110,8 @@ export default {
   height: 70px;
   font-size: 22px;
   color: #fff;
+  background-color: #1b4f92;
+  padding: 0 100px 0 100px;
 }
 .collapse-btn {
   float: left;
