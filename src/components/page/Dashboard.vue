@@ -1,5 +1,5 @@
 <template>
-<div>欢迎登录</div>
+<div class="dashboard">欢迎登录</div>
     <!-- <div>
         <el-row :gutter="20">
             <el-col :span="8">
@@ -143,6 +143,14 @@
 
 
 <style scoped>
+
+.dashboard {
+    background: url(../../assets/mb_bg.png);
+    height: 475px;
+    line-height: 475px;
+    text-align: center;
+    font-size: 30px;
+}
     .el-row {
         margin-bottom: 20px;
     }

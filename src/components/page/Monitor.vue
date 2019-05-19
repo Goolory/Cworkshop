@@ -1,11 +1,11 @@
 <template>
     <div class="table">
-        <div class="crumbs">
+        <!-- <div class="crumbs">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item><i class="el-icon-view"></i> 监控溯源</el-breadcrumb-item>
             </el-breadcrumb>
-        </div>
-        <div class="container">
+        </div> -->
+        <div class="container mb_bg">
             <div class="habdle-box">
                 <!-- <el-button type="primary" icon="delete" class="handle-del mr10" @click="delAll">批量删除</el-button> -->
                 <!-- <el-select v-model="select_cate" placeholder="筛选省份" class="handle-select mr10">
@@ -15,11 +15,12 @@
                 <!-- <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input mr10"></el-input> -->
                 <!-- <el-button type="primary" icon="search" @click="search">搜索</el-button> -->
             </div>
-            <el-table v-loading="loading" :data="data" border style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange">
+            <el-table  :data="data" style="width: 100%; background:none" ref="multipleTable" @selection-change="handleSelectionChange" :header-cell-style="tableHeaderColor">
+              <!-- <el-table v-loading="loading" :data="data" border style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange"> -->
                 <el-table-column type="selection" width="55">选择</el-table-column>
                 <el-table-column prop="Rid" label="日志ID" width="70">
                 </el-table-column>
-                <el-table-column prop="Sid" label="工坊号" width="70" sortable>
+                <el-table-column prop="Sid" label="工坊号" width="90" sortable>
                 </el-table-column>
                 <el-table-column prop="Roomid" label="房间号"  width="70">
                 </el-table-column>
@@ -35,7 +36,7 @@
                 </el-table-column>
                 <el-table-column prop="Reporeexplain" label="报警说明" >
                 </el-table-column>
-                <el-table-column label="操作" width="180">
+                <el-table-column label="操作" width="150">
                     <template slot-scope="scope">
                         <el-button size="small" @click="handleEdit(scope.$index, scope.row)">截图查询</el-button>
                         <!-- <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button> -->
@@ -99,12 +100,21 @@ export default {
         } else if (row.Reportway == '3') {
             return '终端警报+平台警报'
         }
+    },
+    tableHeaderColor({row, column, rowIndex, columnIndex}) {
+      if (rowIndex == 0) {
+        return 'background-color: #bbe1f9; '
+      }
     }
   } 
   
 };
 </script>
 <style scoped>
+.mb_bg {
+  background: url(../../assets/mb_bg.png);
+  height: 475px;
+}
 .handle-box {
   margin-bottom: 20px;
 }
